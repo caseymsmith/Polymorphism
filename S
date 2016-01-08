@@ -1,0 +1,553 @@
+//Casey Smith
+//December 1, 2015
+
+
+//To test classes
+
+#include <iostream>
+#include <iomanip>
+
+#include "CompanyEmployee.h"
+
+int main(){
+
+    //instantiate a CompanyEmployee object
+
+
+    CompanyEmployee employee[3];
+
+    ExecutiveCompanyEmployee emp0("John", "Doe", 100000, "VP", 200, 2000);
+    SoftCompanyEmployee emp1("Allison", "Adams", 112000, "Data Analyst", 197, 35000);
+    TestCompanyEmployee emp2("Sarah", "Smith", 120000, "Associate", 210);
+
+    employee[0]=emp0;
+    employee[1]=emp1;
+    employee[2]=emp2;
+
+    employee[0].print();
+    cout << endl;
+    employee[1].print();
+    cout << endl;
+    employee[2].print();
+
+    cout << endl << endl;
+
+    emp0.print();
+    cout << endl;
+    emp1.print();
+    cout << endl;
+    emp2.print();
+
+
+    cout << endl << endl << "---------------------------------------------" << endl << endl;
+
+
+    CompanyEmployee *empptr;
+
+    empptr = new CompanyEmployee("Sam", "Guarnera", 100000, "Assistant Analyst");
+    empptr->print();
+    cout << endl;
+
+    empptr = new ExecutiveCompanyEmployee("James", "Kraus", 150000, "Manager", 800, 5000);
+    empptr->print();
+    cout << endl;
+
+    empptr = new SoftCompanyEmployee("Rachel", "Lisk", 125000, "Secondary Engineer", 450, 3000);
+    empptr->print();
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+// C++ Class based on the employee UML
+
+#ifndef __CompanyEmployee_H_
+#define __CompanyEmployee_H_
+#include<string>
+using namespace std;
+
+class CompanyEmployee {
+public:
+    CompanyEmployee(const string& first = " ", const string last = " ", double bSalary=0.0, const string jTitle=" ");
+
+    void setFirstName(const string &);  //Set first name
+    string getFirstName() const;    //Return first name
+
+    void setLastName(const string &);  //Set last name
+    string getLastName() const;    //Return last name
+
+    void setBSalaryName(double);  //Set base salary
+    double getBSalaryName() const;    //Return base salary
+
+    void setJTitle(const string &);     //Set job title
+    string getJTitle() const;   //Return job title
+
+    virtual void print() const;
+
+protected:
+        string firstName;
+        string lastName;
+        double baseSalary;
+        string jobTitle;
+};
+#endif //__CompanyEmployee_H_
+
+
+
+
+
+
+
+//ManagerCompanyEmployee class definition represents an type of employee
+//that is classified as a manager.
+
+#ifndef __ManagerCompanyEmployee_H_
+#define __ManagerCompanyEmployee_H_
+
+#include<string>
+using namespace std;
+
+class ManagerCompanyEmployee : public CompanyEmployee
+{
+public:
+    ManagerCompanyEmployee(const string &, const string&, double, const string, double);
+
+    void setBonusS(double); //Set bonus salary
+    double getBonusS() const;   //Return bonus salary
+
+    void setSalary(double) ; //calculate & set salary
+    double getSalary() const; //returns the calculated salary
+
+    void print() const;
+
+protected:
+    double bonusSalary;
+    double salary;
+};
+#endif //__ManagerCompanyEmployee_H_
+
+
+
+
+
+
+
+//ExecutiveCompanyEmployee class definition represents an type of employee
+//that is classified as a manager.
+
+#ifndef __ExecutiveComanyEmployee_H_
+#define __ExecutiveCompanyEmployee_H_
+
+#include <string>
+using namespace std;
+
+class ExecutiveCompanyEmployee : public ManagerCompanyEmployee {
+
+public:
+    ExecutiveCompanyEmployee(const string &, const string&, double, const string, double, int);
+
+    void setStockOption(int); //Set stock option
+    int getStockOption() const;   //Return stock option
+
+    void setSalary(double) ; //calculate & set salary
+    double getSalary() const; //returns the calculated salary
+
+    virtual void print() const;
+
+private:
+    double stockOption;
+    double salary;
+
+};
+#endif //__ExecutiveComanyEmployee_H_
+
+
+
+
+
+
+
+//TechCompanyEmployee class definition represents an type of employee
+//that is classified as a manager.
+
+#ifndef __TechComanyEmployee_H_
+#define __TechCompanyEmployee_H_
+
+#include <string>
+using namespace std;
+
+class TechCompanyEmployee : public CompanyEmployee {
+
+public:
+    TechCompanyEmployee(const string &, const string&, double, const string, double);
+
+    void setProfitSharing(int); //Set stock option
+    int getProfitSharing() const;   //Return stock option
+
+    void setSalary(double) ; //calculate & set salary
+    double getSalary() const; //returns the calculated salary
+
+    void print() const;
+
+protected:
+    double profitSharing;
+    double salary;
+
+};
+#endif //__TechComanyEmployee_H_
+
+
+
+
+
+
+
+//SoftCompanyEmployee class definition represents an type of employee
+//that is classified as a manager.
+
+#ifndef __SoftComanyEmployee_H_
+#define __SoftCompanyEmployee_H_
+
+#include <string>
+using namespace std;
+
+class SoftCompanyEmployee : public TechCompanyEmployee {
+
+public:
+    SoftCompanyEmployee(const string &, const string&, double, const string, double, double);
+
+    void setOTPay(double); //Set stock option
+    double getOTPay() const;   //Return stock option
+
+    void setSalary(double); //calculates & set salary
+    double getSalary() const; //returns the calculated salary
+
+    virtual void print() const;
+
+protected:
+    double OTPay;
+    double salary;
+};
+#endif //__SoftComanyEmployee_H_
+
+
+
+
+
+
+
+
+
+
+//TestCompanyEmployee class definition represents an type of employee
+//that is classified as a manager.
+
+#ifndef __TestComanyEmployee_H_
+#define __TestCompanyEmployee_H_
+
+#include <string>
+using namespace std;
+
+class TestCompanyEmployee : public TechCompanyEmployee {
+
+public:
+    TestCompanyEmployee(const string &, const string&, double, const string, double);
+
+    void setSalary(double); //calculates & set salary
+    double getSalary() const; //returns the calculated salary
+
+    virtual void print() const;
+
+protected:
+    double profitSharing;
+    double salary;
+
+};
+#endif //__TestComanyEmployee_H_
+
+
+
+
+
+
+
+
+
+
+
+//Class CompanyEmployee member-function definitions.
+
+#include <iostream>
+using namespace std;
+
+#include "CompanyEmployee.h"
+
+//Constructor
+CompanyEmployee::CompanyEmployee(string const & first, string const last,
+        double bSalary, string const jTitle) {
+    firstName=first;
+    lastName=last;
+    baseSalary=bSalary;
+    jobTitle=jTitle;
+}
+
+void CompanyEmployee::setFirstName(string const &first) {
+    firstName=first;
+}
+
+string CompanyEmployee::getFirstName() const {
+    return firstName;
+}
+
+void CompanyEmployee::setLastName(string const & last) {
+    lastName=last;
+}
+
+string CompanyEmployee::getLastName() const {
+    return lastName;
+}
+
+void CompanyEmployee::setBSalaryName(double bSalary) {
+    baseSalary=bSalary;
+}
+
+double CompanyEmployee::getBSalaryName() const {
+    return baseSalary;
+}
+
+void CompanyEmployee::setJTitle(string const & jTitle) {
+    jobTitle=jTitle;
+}
+
+string CompanyEmployee::getJTitle() const {
+    return jobTitle;
+}
+
+void CompanyEmployee::print() const{
+    cout << "company employee: " << firstName << " " << lastName << endl
+    << "base salary: " << baseSalary << endl
+    << "job title: " << jobTitle << endl;
+    return;
+} //print function to display the compnay employee
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Class ExecutiveCompanyEmployee member-function definitions
+
+#include <iostream>
+using namespace std;
+
+#include "CompanyEmployee.h"
+
+//constructor
+ExecutiveCompanyEmployee::ExecutiveCompanyEmployee(string const & first, string const &last,
+        double bSalary, string const jTitle, double bonus, int stockOpt)
+
+        : ManagerCompanyEmployee(first, last, bSalary, jTitle, bonus) //explicitly calls base-class constructor
+{
+    stockOption=stockOpt;
+    setSalary(baseSalary);
+}
+
+void ExecutiveCompanyEmployee::setStockOption(int stockOP) {
+    stockOption=stockOP;
+}
+
+int ExecutiveCompanyEmployee::getStockOption() const {
+    return stockOption;
+}
+
+void ExecutiveCompanyEmployee::print() const {
+    cout << "company employee: " << firstName << " " << lastName << endl
+            << "base salary: " << baseSalary << endl
+            << "job title: " << jobTitle << endl
+            << "bonus salary: " << bonusSalary << endl
+            << "stock option: " << stockOption << endl << endl
+        << "updated salary: " << getSalary();
+    return;
+}
+
+void ExecutiveCompanyEmployee::setSalary(double baseSalary) {
+    salary=baseSalary+bonusSalary+stockOption;
+}
+
+double ExecutiveCompanyEmployee::getSalary() const {
+    return salary;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Class SoftCompanyEmployee member-function definitions
+
+#include <iostream>
+using namespace std;
+
+#include "CompanyEmployee.h"
+
+//constructor
+
+SoftCompanyEmployee::SoftCompanyEmployee(string const &first, string const &last,
+        double bSalary, string const jTitle, double pfitSharing, double overTimePay)
+    : TechCompanyEmployee(first, last, bSalary, jTitle, pfitSharing)
+{
+    OTPay=overTimePay;
+    setSalary(baseSalary);
+}
+
+void SoftCompanyEmployee::setOTPay(double pay) {
+    OTPay=pay;
+}
+
+double SoftCompanyEmployee::getOTPay() const {
+    return OTPay;
+}
+
+void SoftCompanyEmployee::print() const {
+    cout << "company employee: " << firstName << " " << lastName << endl
+            << "base salary: " << baseSalary << endl
+            << "job title: " << jobTitle << endl
+            << "profit sharing: " << profitSharing << endl
+            << "overtime pay: " << OTPay
+            << endl << endl
+            << "updated salary: " << getSalary();;
+    return;
+}
+
+void SoftCompanyEmployee::setSalary(double baseSalary) {
+    salary=baseSalary+OTPay;
+}
+
+double SoftCompanyEmployee::getSalary() const {
+    return salary;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Class TechCompanyEmployee member-function definitions
+
+#include <iostream>
+using namespace std;
+
+#include "CompanyEmployee.h"
+
+//constructor
+TechCompanyEmployee::TechCompanyEmployee(string const & first, string const &last, double bSalary,
+            string const jTitle, double pfitSharing)
+    : CompanyEmployee(first, last, bSalary, jTitle) //Explicitly calls base-class constructor
+{
+    profitSharing=pfitSharing;
+    setSalary(baseSalary);
+}
+
+void TechCompanyEmployee::setProfitSharing(int profit) {
+    profitSharing=profit;
+}
+
+int TechCompanyEmployee::getProfitSharing() const {
+    return profitSharing;
+}
+
+void TechCompanyEmployee::print() const {
+    cout << "company employee: " << firstName << " " << lastName << endl
+            << "base salary: " << baseSalary << endl
+            << "job title: " << jobTitle << endl
+            << "profit sharing: " << profitSharing;
+    return;
+}
+
+void TechCompanyEmployee::setSalary(double baseSalary) {
+    salary=baseSalary+profitSharing;
+}
+
+double TechCompanyEmployee::getSalary() const {
+    return salary;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Class TestCompanyEmployee member-function definitions
+
+#include <iostream>
+using namespace std;
+
+#include "CompanyEmployee.h"
+
+//constructor
+TestCompanyEmployee::TestCompanyEmployee(string const & first, string const & last,
+    double bSalary, string const jTitle , double pfitSharing)
+    : TechCompanyEmployee(first, last, bSalary, jTitle, pfitSharing)
+{
+    profitSharing=pfitSharing;
+    setSalary(baseSalary);
+}
+
+void TestCompanyEmployee::print() const {
+    cout << "company employee: " << firstName << " " << lastName << endl
+            << "base salary: " << baseSalary << endl
+            << "job title: " << jobTitle << endl
+            << "profit sharing: " << profitSharing<< endl << endl
+            << "updated salary: " << getSalary();
+    return;
+}
+
+void TestCompanyEmployee::setSalary(double baseSalary) {
+    salary=baseSalary+profitSharing;
+}
+
+double TestCompanyEmployee::getSalary() const {
+    return salary;
+}
+
